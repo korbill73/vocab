@@ -15,8 +15,8 @@
   <body>
     <div id="debug-log" style="position:fixed;top:0;left:0;width:100%;z-index:10000;background:rgba(15,23,42,0.95);color:#ADFB2F;font-family:monospace;font-size:12px;padding:15px;max-height:250px;overflow:auto;border-bottom:2px solid #ADFB2F;box-shadow:0 10px 40px rgba(0,0,0,0.8);">
       <div style="font-weight:bold;margin-bottom:8px;color:white;display:flex;justify-content:space-between;">
-        <span>🚀 SYSTEM DIAGNOSTICS v2.0</span>
-        <span style="color:#64748B;">[GH-PAGES DEPLOY]</span>
+        <span>🚀 SYSTEM DIAGNOSTICS v3.0</span>
+        <span style="color:#64748B;">[STABLE DEPLOY]</span>
       </div>
       <div id="debug-status" style="margin-bottom:5px;">Initializing Runtime...</div>
     </div>
@@ -32,37 +32,35 @@
       }
       
       window.onerror = function(msg, url, l) {
-        log('❌ CRITICAL: ' + msg + ' (Line: ' + l + ')', '#FF4B4B');
+        log('❌ CRITICAL ERROR: ' + msg + ' (Line: ' + l + ')', '#FF4B4B');
       };
       
-      const oldLog = console.log;
-      console.log = function() {
-        log('LOG: ' + Array.from(arguments).join(' '));
-        oldLog.apply(console, arguments);
-      };
+      console.log = (function(old) {
+          return function() {
+            log('LOG: ' + Array.from(arguments).join(' '));
+            old.apply(console, arguments);
+          }
+      })(console.log);
 
-      log('Starting Application Boot Sequence...');
-      log('Target Directory: /' + "_expo");
+      log('Deployment Mode: Subdirectory Fallback');
+      log('Target Storage: /' + "expo-assets");
     </script>
-    <noscript><div style="padding:100px;text-align:center;color:white;">Please enable JavaScript to view the Vocabulary Abyss.</div></noscript>
     <div id="root"></div>
     
     <script>
-      log('Requesting Bundle: index-7abd5dbed5c556a2732199bd0cfa3a18.js...');
+      log('Requesting Engine: index-7abd5dbed5c556a2732199bd0cfa3a18.js...');
       const s = document.createElement('script');
-      s.src = "./_expo/static/js/web/index-7abd5dbed5c556a2732199bd0cfa3a18.js";
+      s.src = "./expo-assets/static/js/web/index-7abd5dbed5c556a2732199bd0cfa3a18.js";
       s.defer = true;
       s.onload = function() { 
-        log('✅ BUNDLE DOWNLOADED: ' + s.src.split('/').pop(), '#4ADE80');
-        log('Starting React Engine...', '#60A5FA');
+        log('✅ ENGINE LOADED: ' + s.src.split('/').pop(), '#4ADE80');
+        log('Booting React Graphics...', '#60A5FA');
       };
       s.onerror = function() { 
-        log('❌ BUNDLE 404: FAILED TO LOAD RESOURCE', '#FF4B4B');
+        log('❌ 404 ERROR: RESOURCE NOT ACCESSIBLE', '#FF4B4B');
         log('URL: ' + s.src, 'yellow');
-        log('Try clearing browser cache or wait a few minutes for GitHub sync.', '#94A3B8');
       };
       document.body.appendChild(s);
     </script>
-    <script id="no-jekyll-marker"></script>
   </body>
 </html>
