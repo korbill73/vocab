@@ -26,12 +26,27 @@
   <link rel="icon" href="./favicon.ico" /></head>
 
   <body>
+<div id="debug-log" style="position:fixed;top:0;left:0;width:100%;z-index:10000;background:rgba(0,0,0,0.8);color:white;font-family:monospace;font-size:10px;padding:5px;max-height:100px;overflow:auto;">
+  [DEBUG] JS initialization...<br/>
+</div>
+<script>
+  window.onerror = function(msg, url, l) {
+    document.getElementById('debug-log').innerHTML += '<div style="color:red;">ERR: ' + msg + ' (' + l + ')</div>';
+  };
+  console.log = (function(old) {
+    return function(msg) {
+      document.getElementById('debug-log').innerHTML += 'LOG: ' + msg + '<br/>';
+      old.apply(console, arguments);
+    }
+  })(console.log);
+</script>
+
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="./_expo/static/js/web/index-66ea7e9ef22ac24069e8a28451339b1c.js" defer></script>
+  <script src="./_expo/static/js/web/index-7abd5dbed5c556a2732199bd0cfa3a18.js" defer></script>
 </body>
 </html>
