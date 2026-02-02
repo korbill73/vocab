@@ -5,30 +5,33 @@
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Antigravity Vocab Master</title>
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
-      html, body { height: 100%; }
-      body { overflow: hidden; }
-      #root { display: flex; height: 100%; flex: 1; }
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
     </style>
-    <link rel="icon" href="./favicon.ico" />
-  </head>
+  <link rel="icon" href="/favicon.ico" /></head>
+
   <body>
-    <div id="debug-log" style="position:fixed;top:0;left:0;width:100%;z-index:10000;background:rgba(0,0,0,0.8);color:white;font-family:monospace;font-size:10px;padding:5px;max-height:100px;overflow:auto;">
-      [DEBUG] JS initialization...<br/>
-    </div>
-    <script>
-      window.onerror = function(msg, url, l) {
-        document.getElementById('debug-log').innerHTML += '<div style="color:red;">ERR: ' + msg + ' (' + l + ')</div>';
-      };
-      console.log = (function(old) {
-        return function(msg) {
-          document.getElementById('debug-log').innerHTML += 'LOG: ' + msg + '<br/>';
-          old.apply(console, arguments);
-        }
-      })(console.log);
-    </script>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <!-- The root element for your Expo app. -->
     <div id="root"></div>
-    <script src="./expo-static/static/js/web/index-7abd5dbed5c556a2732199bd0cfa3a18.js" defer></script>
-  </body>
+  <script src="/_expo/static/js/web/index-7abd5dbed5c556a2732199bd0cfa3a18.js" defer></script>
+</body>
 </html>
