@@ -6,61 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Antigravity Vocab Master</title>
     <style id="expo-reset">
-      html, body { height: 100%; background: #0F172A; color: white; margin: 0; }
-      body { overflow: hidden; }
+      html, body { height: 100%; background: #0F172A; margin: 0; padding: 0; }
       #root { display: flex; height: 100%; flex: 1; }
     </style>
     <link rel="icon" href="./favicon.ico" />
   </head>
   <body>
-    <div id="debug-log" style="position:fixed;top:0;left:0;width:100%;z-index:10000;background:rgba(15,23,42,0.95);color:#ADFB2F;font-family:monospace;font-size:12px;padding:15px;max-height:250px;overflow:auto;border-bottom:2px solid #ADFB2F;box-shadow:0 10px 40px rgba(0,0,0,0.8);">
-      <div style="font-weight:bold;margin-bottom:8px;color:white;display:flex;justify-content:space-between;">
-        <span>🚀 SYSTEM DIAGNOSTICS v3.0</span>
-        <span style="color:#64748B;">[STABLE DEPLOY]</span>
-      </div>
-      <div id="debug-status" style="margin-bottom:5px;">Initializing Runtime...</div>
-    </div>
     <script>
-      function log(msg, color) {
-        const div = document.createElement('div');
-        div.style.cssText = 'margin-bottom:3px;border-left:3px solid ' + (color || '#ADFB2F') + ';padding-left:10px;';
-        div.style.color = color || '#ADFB2F';
-        div.innerHTML = '<span style="color:#64748B;font-size:10px;">' + new Date().toLocaleTimeString() + '</span> ' + msg;
-        const container = document.getElementById('debug-log');
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-      }
-      
+      // Invisible Error Logger
       window.onerror = function(msg, url, l) {
-        log('❌ CRITICAL ERROR: ' + msg + ' (Line: ' + l + ')', '#FF4B4B');
+        console.error('App Crash Logged:', msg, 'at line', l);
+        return false;
       };
-      
-      console.log = (function(old) {
-          return function() {
-            log('LOG: ' + Array.from(arguments).join(' '));
-            old.apply(console, arguments);
-          }
-      })(console.log);
-
-      log('Deployment Mode: Subdirectory Fallback');
-      log('Target Storage: /' + "expo-assets");
+      console.log('App starting in production mode (GitHub Pages)');
     </script>
+    <noscript><div style="padding:100px;text-align:center;color:white;">Please enable JavaScript.</div></noscript>
     <div id="root"></div>
-    
-    <script>
-      log('Requesting Engine: index-7abd5dbed5c556a2732199bd0cfa3a18.js...');
-      const s = document.createElement('script');
-      s.src = "./expo-assets/static/js/web/index-7abd5dbed5c556a2732199bd0cfa3a18.js";
-      s.defer = true;
-      s.onload = function() { 
-        log('✅ ENGINE LOADED: ' + s.src.split('/').pop(), '#4ADE80');
-        log('Booting React Graphics...', '#60A5FA');
-      };
-      s.onerror = function() { 
-        log('❌ 404 ERROR: RESOURCE NOT ACCESSIBLE', '#FF4B4B');
-        log('URL: ' + s.src, 'yellow');
-      };
-      document.body.appendChild(s);
-    </script>
+    <script src="./expo-assets/static/js/web/index-95bb34d5f23977644dbc56fc86d12321.js" defer></script>
   </body>
 </html>
