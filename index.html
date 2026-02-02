@@ -5,33 +5,64 @@
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Antigravity Vocab Master</title>
-    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
-      /* These styles make the body full-height */
-      html,
-      body {
-        height: 100%;
-      }
-      /* These styles disable body scrolling if you are using <ScrollView> */
-      body {
-        overflow: hidden;
-      }
-      /* These styles make the root element full-height */
-      #root {
-        display: flex;
-        height: 100%;
-        flex: 1;
-      }
+      html, body { height: 100%; background: #0F172A; color: white; margin: 0; }
+      body { overflow: hidden; }
+      #root { display: flex; height: 100%; flex: 1; }
     </style>
-  <link rel="icon" href="/favicon.ico" /></head>
-
+    <link rel="icon" href="./favicon.ico" />
+  </head>
   <body>
-    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <!-- The root element for your Expo app. -->
+    <div id="debug-log" style="position:fixed;top:0;left:0;width:100%;z-index:10000;background:rgba(15,23,42,0.95);color:#ADFB2F;font-family:monospace;font-size:12px;padding:15px;max-height:250px;overflow:auto;border-bottom:2px solid #ADFB2F;box-shadow:0 10px 40px rgba(0,0,0,0.8);">
+      <div style="font-weight:bold;margin-bottom:8px;color:white;display:flex;justify-content:space-between;">
+        <span>🚀 SYSTEM DIAGNOSTICS v2.0</span>
+        <span style="color:#64748B;">[GH-PAGES DEPLOY]</span>
+      </div>
+      <div id="debug-status" style="margin-bottom:5px;">Initializing Runtime...</div>
+    </div>
+    <script>
+      function log(msg, color) {
+        const div = document.createElement('div');
+        div.style.cssText = 'margin-bottom:3px;border-left:3px solid ' + (color || '#ADFB2F') + ';padding-left:10px;';
+        div.style.color = color || '#ADFB2F';
+        div.innerHTML = '<span style="color:#64748B;font-size:10px;">' + new Date().toLocaleTimeString() + '</span> ' + msg;
+        const container = document.getElementById('debug-log');
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+      }
+      
+      window.onerror = function(msg, url, l) {
+        log('❌ CRITICAL: ' + msg + ' (Line: ' + l + ')', '#FF4B4B');
+      };
+      
+      const oldLog = console.log;
+      console.log = function() {
+        log('LOG: ' + Array.from(arguments).join(' '));
+        oldLog.apply(console, arguments);
+      };
+
+      log('Starting Application Boot Sequence...');
+      log('Target Directory: /' + "_expo");
+    </script>
+    <noscript><div style="padding:100px;text-align:center;color:white;">Please enable JavaScript to view the Vocabulary Abyss.</div></noscript>
     <div id="root"></div>
-  <script src="/_expo/static/js/web/index-7abd5dbed5c556a2732199bd0cfa3a18.js" defer></script>
-</body>
+    
+    <script>
+      log('Requesting Bundle: index-7abd5dbed5c556a2732199bd0cfa3a18.js...');
+      const s = document.createElement('script');
+      s.src = "./_expo/static/js/web/index-7abd5dbed5c556a2732199bd0cfa3a18.js";
+      s.defer = true;
+      s.onload = function() { 
+        log('✅ BUNDLE DOWNLOADED: ' + s.src.split('/').pop(), '#4ADE80');
+        log('Starting React Engine...', '#60A5FA');
+      };
+      s.onerror = function() { 
+        log('❌ BUNDLE 404: FAILED TO LOAD RESOURCE', '#FF4B4B');
+        log('URL: ' + s.src, 'yellow');
+        log('Try clearing browser cache or wait a few minutes for GitHub sync.', '#94A3B8');
+      };
+      document.body.appendChild(s);
+    </script>
+    <script id="no-jekyll-marker"></script>
+  </body>
 </html>
